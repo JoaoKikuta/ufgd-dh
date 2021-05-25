@@ -1,0 +1,200 @@
+#instalação  biblioteca para analise de correspondência múltipla
+
+install.packages("FactoMineR")
+
+#pacotes diversos para abrir interface gráfica amigável
+
+install.packages("sem")
+install.packages("rmarkdown")
+install.packages("MASS")
+install.packages("rgl")
+install.packages("multcomp")
+install.packages("lmtest")
+install.packages("aplpack")
+install.packages("carData")
+install.packages("lattice")
+install.packages("effects")
+install.packages("Factoshiny")
+install.packages("RcmdrPlugin.FactoMineR")
+install.packages("factoextra")
+
+#instalação de interface gráfica amigável
+install.packages("Rcmdr")
+
+#pacote para converter a tabela de caracteres para fatores e colocar em uma variavel
+#um bug do programa é que não se pode criar várias planilhas e depois importar 
+#apenas uma, pois o programa adiciona mais uma coluna e a chama de X, como numerica
+install.packages("readxl")
+
+
+
+#Bibliotecas para uso
+library("FactoMineR")
+library("Factoshiny")
+library("RcmdrPlugin.FactoMineR")
+library("factoextra")
+library("sem")
+library("lmtest")
+library("carData")
+library("lattice")
+library("effects")
+library("rmarkdown")
+library("rgl")
+library("multcomp")
+library("aplpack")
+library("Rcmdr")
+
+#Conversão de caracteres para numero
+library("readxl")
+
+
+respostas <- read.csv(url("https://raw.githubusercontent.com/JoaoKikuta/ufgd-dh/main/dados.csv"), sep=";")
+
+summary(respostas)
+
+?dimnames
+pessoas_resp <- MCA(respostas, graph = FALSE,)
+
+
+summary(pessoas_resp, ncp = 4, nbelements = Inf)
+
+?dimdesc
+dimdesc(pessoas_resp)
+
+
+
+fviz_mca_ind(pessoas_resp, col.ind="cos2")
+
+plot(pessoas_resp, invisible = c('quali.sup'),
+     autoLab = "y", title = "Apenas Individuos", cex=0.7,
+      col.var = "red", col.ind = "gray20")
+
+
+plot(pessoas_resp, invisible = c('quali.sup'),
+     autoLab = "y", title = "Apenas Individuos", cex=0.7,
+     col.var = "red", col.ind = "gray20")
+
+
+grp <- as.factor(respostas[, "porte_arma"])
+fviz_mca_var(pessoas_resp, label="none", habillage=grp)
+
+
+fviz_mca_biplot(pessoas_resp, repel = TRUE, col.var = "#E7B800",
+                habillage = grp, addEllipses = TRUE, ellipse.level = 0.95)
+
+fviz_mca_biplot(pessoas_resp, label="var", col.var ="blue",
+                habillage=grp, addEllipses=TRUE, ellipse.level=0.95, select.var = list(contrib = 60), repel = T) +  theme_minimal()
+
+
+fviz_mca_biplot(pessoas_resp, label="var", col.var ="blue",
+                habillage=grp, select.var = list(contrib = 60), repel = T) +  theme_minimal()
+
+
+
+
+
+
+#Porte de armas
+porte<-as.factor(respostas[,12])
+fviz_mca_ind (pessoas_resp,habillage = porte, addEllipses = T, repel = T, title=" ")
+fviz_mca_biplot (pessoas_resp,habillage = porte, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+
+
+
+
+#Religião
+religiao<-as.factor(respostas[,10])
+fviz_mca_ind (pessoas_resp,habillage = religiao, addEllipses = TRUE, repel = T, title=" ", ellipse.level=0.95, label="none") +theme_minimal()
+
+fviz_mca_biplot (pessoas_resp,habillage = religiao, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+
+fviz_mca_var(pessoas_resp, select.var = list(name = c("Ca", "Ev", "Es", "Um", "Ju", "At", "Ag", "Out", "arma_s", "arma_n", "arma_ind", "arma_ns")))
+
+
+
+#Idade
+idade<-as.factor(respostas[,13])
+fviz_mca_ind (pessoas_resp,habillage = idade, addEllipses = T, repel = T,)
+fviz_mca_biplot (pessoas_resp,habillage = idade, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+fviz_mca_var(pessoas_resp, repel = T,select.var = list(name = c("15_19", "20_29", "30_39", "40_49", "50_59", "arma_s", "arma_n", "arma_ind", "arma_ns")))
+
+
+
+#Sexo
+sexo<-as.factor(respostas[,1])
+fviz_mca_ind (pessoas_resp,habillage = sexo, addEllipses = T, repel = T,)
+fviz_mca_biplot (pessoas_resp,habillage = sexo, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+fviz_mca_var(pessoas_resp, select.var = list(name = c( "sexo_M", "sexo_F", "arma_s", "arma_n", "arma_ind", "arma_ns")))
+
+
+#Cor
+cor<-as.factor(respostas[,2])
+fviz_mca_ind (pessoas_resp,habillage = cor, addEllipses = T, repel = T,)
+fviz_mca_biplot (pessoas_resp,habillage = cor, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+fviz_mca_var(pessoas_resp, repel = T,select.var = list(name = c("15_19", "20_29", "30_39", "40_49", "50_59", "arma_s", "arma_n", "arma_ind", "arma_ns")))
+
+
+#Porte Municipio
+municipio<-as.factor(respostas[,3])
+fviz_mca_ind (pessoas_resp,habillage = municipio, addEllipses = T, repel = T,)
+fviz_mca_biplot (pessoas_resp,habillage = municipio, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+
+
+#Escolaridade 
+esc<-as.factor(respostas[,5])
+fviz_mca_ind (pessoas_resp,habillage = esc, addEllipses = T, repel = T )
+fviz_mca_biplot (pessoas_resp,habillage = esc, addEllipses = FALSE, repel = F, 
+                 col.var="gray40", xlim=c(-3,5), ylim = c(0,2.5), invisible = c("ind"))
+fviz_mca_var(pessoas_resp, repel = T,select.var = list(name = c("esc_EFI", "esc_EFC", "esc_EMI", "esc_EMC", "esc_ESI", "esc_ESC", "esc_M","esc_D","SN","arma_s", "arma_n", "arma_ind", "arma_ns")))
+
+
+
+#Escolaridade Mãe
+esc_mae<-as.factor(respostas[,6])
+fviz_mca_ind (pessoas_resp,habillage = esc_mae, addEllipses = T, repel = T,)
+fviz_mca_biplot (pessoas_resp,habillage = esc_mae, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+
+#Escolaridade PAI
+esc_pai<-as.factor(respostas[,7])
+fviz_mca_ind (pessoas_resp, habillage = esc_pai,addEllipses = T, repel = T,  ellipse.level=0.95)
+fviz_mca_biplot (pessoas_resp,habillage = esc_pai, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+
+
+#Renda
+renda<-as.factor(respostas[,8])
+fviz_mca_ind (pessoas_resp, habillage = renda,addEllipses = T, repel = T,  ellipse.level=0.95)
+fviz_mca_biplot (pessoas_resp,habillage = renda, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+
+
+#Politica
+politica<-as.factor(respostas[,11])
+fviz_mca_ind (pessoas_resp, habillage = politica,addEllipses = T, repel = T,  ellipse.level=0.95)
+fviz_mca_biplot (pessoas_resp,habillage = politica, addEllipses = T, repel = T, 
+                 select.var = list(contrib = 40), col.var="gray40")
+fviz_mca_var(pessoas_resp, select.var = list(name = c( "LE", "CD", "CE", "LD", "NS", "arma_s", "arma_n", "arma_ind", "arma_ns")))
+
+
+
+
+?HCPC
+
+res.hcpc<-HCPC(pessoas_resp ,nb.clust=-1,consol=FALSE, min=4, max=4, graph=TRUE)
+
+fviz_cluster(res.hcpc, repel = T, show.clust.cent = T, palet="jco",ggtheme = theme_minimal(), main = "Factor map")
+
+fviz_dend(res.hcpc,cex = 0.6, palette = "jco", rect = T, rect_fill = T, rect_border = "jco", labels_track_height = 0.8)
+
+fviz_cluster(res.hcpc, geom = "point", main = "Factor Map")
+
+fviz_dend (res.hcpc, show_labels = T, palette = "jco")
+
+
