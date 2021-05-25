@@ -1,1 +1,29 @@
-Arquivos para minicurso
+Bibliotecas para R
+
+  #instalação  biblioteca para analise de correspondência múltipla
+
+  install.packages("FactoMineR")
+
+  #pacotes diversos para abrir interface gráfica amigável
+
+  install.packages("sem")
+  install.packages("rmarkdown")
+  install.packages("MASS")
+  install.packages("rgl")
+  install.packages("multcomp")
+  install.packages("lmtest")
+  install.packages("aplpack")
+  install.packages("carData")
+  install.packages("lattice")
+  install.packages("effects")
+  install.packages("Factoshiny")
+  install.packages("RcmdrPlugin.FactoMineR")
+  install.packages("factoextra")
+
+  #instalação de interface gráfica amigável
+  install.packages("Rcmdr")
+
+  #pacote para converter a tabela de caracteres para fatores e colocar em uma variavel
+  #um bug do programa é que não se pode criar várias planilhas e depois importar 
+  #apenas uma, pois o programa adiciona mais uma coluna e a chama de X, como numerica
+  install.packages("readxl")
